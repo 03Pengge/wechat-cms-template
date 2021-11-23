@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const HelloWorldPlugin = require('./plugin/test');
 
 module.exports = {
@@ -38,6 +39,15 @@ module.exports = {
     ],
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, "../index.html"),
+    }),
     // new HelloWorldPlugin({ options: true }),
   ],
+  devServer: {
+    compress: true,
+    hot: true,
+    open: true,
+    port: 9000
+  }
 };

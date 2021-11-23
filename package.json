@@ -4,7 +4,7 @@
   "description": "微信公众号文章模板，可以通过拖拽生成精美文章模板，缩短文章写作时间",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config ./config/webpack.config.js"
+    "start": "webpack serve --config ./config/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,11 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
     "loader-runner": "^4.2.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.64.1",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.5.0"
   }
 }
