@@ -15,7 +15,7 @@
         "lib": ["dom", "es6", "scripthost"],
         "baseUrl": ".",
         "paths": {
-            "src": ["src"] // 此处映射是相对于"baseUrl"
+            "src": ["src"]
         }
     },
     "exclude": [

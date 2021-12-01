@@ -20,6 +20,9 @@
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
+    "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
     "html-loader": "^3.0.1",
     "html-webpack-plugin": "^5.5.0",
@@ -34,9 +37,11 @@
     "webpack-dev-server": "^4.5.0"
   },
   "dependencies": {
+    "@loadable/component": "^5.15.0",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-router-dom": "^5.3.2",
+    "antd": "^4.17.2",
     "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

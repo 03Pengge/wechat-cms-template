@@ -1,33 +1,42 @@
-const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const paths = require("./paths");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 // const HelloWorldPlugin = require('./plugin/test');
-
 module.exports = {
   mode: "development",
-  entry: "./src/entry/index.js",
+  entry: paths.appIndexJs,
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, "../dist"),
+    filename: "bundle.js",
+    path: paths.output,
   },
-  resolveLoader:{
+  resolveLoader: {
     // 去哪些目录下寻找 Loader，有先后顺序之分
-    modules: ['node_modules','./config/'],
+    modules: ["node_modules", "./config/"],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js", "json"],
+    alias: {
+      src: paths.aliasSrc,
+    },
   },
   module: {
     rules: [
       {
+        test: /\.(jsx?|tsx?|js?|ts?)$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
+      {
         test: /\.(css|less)$/i,
-        use: ['style-loader', 'css-loader','less-loader'],
+        use: ["style-loader", "css-loader", "less-loader"],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.(jsx?|tsx?|js?|ts?)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader'],
-        exclude: /node_modules/
+        type: "asset/resource",
       },
       {
         test: /\.html$/i,
@@ -45,12 +54,11 @@ module.exports = {
       //     },
       //   ]
       // },
-
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "../index.html"),
+      template: paths.htmlTemplate,
     }),
     // new HelloWorldPlugin({ options: true }),
   ],
@@ -58,6 +66,6 @@ module.exports = {
     compress: true,
     hot: true,
     open: true,
-    port: 9000
-  }
+    port: 8000,
+  },
 };
