@@ -24,6 +24,12 @@ module.exports = {
         type: 'asset/resource',
       },
       {
+        test: /\.(jsx?|tsx?|js?|ts?)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+        exclude: /node_modules/
+      },
+      {
         test: /\.html$/i,
         loader: "html-loader",
       },

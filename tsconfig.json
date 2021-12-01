@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "target": "es6",
+        "sourceMap": false,
+        "emitDecoratorMetadata": false,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "removeComments": false,
+        "noImplicitAny": false,
+        "moduleResolution": "node",
+        "jsx": "react",
+        "outDir": "dist",
+        "module": "ESNext",
+        "lib": ["dom", "es6", "scripthost"],
+        "baseUrl": ".",
+        "paths": {
+            "src": ["src"] // 此处映射是相对于"baseUrl"
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "include": [
+        "./src/"
+    ]
+}
