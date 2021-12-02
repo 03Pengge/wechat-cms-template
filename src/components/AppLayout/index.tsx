@@ -9,6 +9,8 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { dom } from "src/utils";
+import lodash from "lodash";
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 export default class SiderDemo extends React.Component {
@@ -16,23 +18,55 @@ export default class SiderDemo extends React.Component {
     collapsed: true,
   };
 
+  componentDidMount(){
+    document.querySelector('.comp-draggable').addEventListener('mouseover',(e)=>{
+      console.log(e);
+    },false)
+  }
+
   onCollapse = (collapsed) => {
     console.log(collapsed);
     this.setState({ collapsed });
   };
-  dragOver=(e)=>{
-    e.preventDefault();
+  onmouseenter = (e)=>{
+    console.log('onmouseenter',e.target);
+
   }
-  ondrop=(e)=>{
-    var id = e.dataTransfer.getData("Text");
+  onmouseleave=(e)=>{
+    console.log('onmouseleave',e.target);
+
+  }
+  dragOver = (e) => {
+    e.preventDefault();
+    // const parentDom = dom.getParentContainClass(e.target,'comp-draggable');
+    // console.log({parentDom});
+  };
+  ondrop = (e) => {
+    // 新增
+    const id = e.dataTransfer.getData("Text");
     const dragDom = document.getElementById(id);
-    const node:any = dragDom.cloneNode(true);
-    console.log('e',node);
+    const parentDom = dom.getParentContainClass(e.target, "comp-draggable");
+    // 移动位置
+    if (parentDom) {
+      document
+        .querySelector(".preview-content")
+        .insertBefore(dragDom, parentDom);
+      return;
+    }
+
+    const node: any = dragDom.cloneNode(true);
     const timeStamp = new Date().getTime();
     node.setAttribute("id", timeStamp);
-    node.classList.add('edit');
-    document.querySelector(".preview-content").appendChild(node);
-  }
+    node.setAttribute("draggable", true);
+    node.ondragstart = (e) => {
+      e.dataTransfer.setData("Text", e.target.id);
+    };
+    console.log('node',node)
+    node.onmouseenter = this.onmouseenter;
+    node.onmouseleave = this.onmouseleave;
+    node.classList.add("edit");
+    e.target.appendChild(node);
+  };
 
   render() {
     const { collapsed } = this.state;
@@ -73,14 +107,14 @@ export default class SiderDemo extends React.Component {
               style={{ padding: 24, height: "100vh" }}
             >
               <div className="site-left">
-                <div className="components-content">
-                  {this.props.children}
-                </div>
+                <div className="components-content">{this.props.children}</div>
               </div>
               <div className="site-right">
-                <div className="preview-content" onDragOver={this.dragOver} onDrop={this.ondrop}>
-
-                </div>
+                <div
+                  className="preview-content"
+                  onDragOver={this.dragOver}
+                  onDrop={this.ondrop}
+                ></div>
               </div>
             </div>
           </Content>
