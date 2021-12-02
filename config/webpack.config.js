@@ -13,7 +13,7 @@ module.exports = {
     modules: ["node_modules", "./config/"],
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", "json"],
+    extensions: [".tsx", ".ts", ".js", ".json", ".jpeg"],
     alias: {
       src: paths.aliasSrc,
     },

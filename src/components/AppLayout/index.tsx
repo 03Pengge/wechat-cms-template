@@ -13,13 +13,26 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 export default class SiderDemo extends React.Component {
   state = {
-    collapsed: false,
+    collapsed: true,
   };
 
   onCollapse = (collapsed) => {
     console.log(collapsed);
     this.setState({ collapsed });
   };
+  dragOver=(e)=>{
+    e.preventDefault();
+  }
+  ondrop=(e)=>{
+    var id = e.dataTransfer.getData("Text");
+    const dragDom = document.getElementById(id);
+    const node:any = dragDom.cloneNode(true);
+    console.log('e',node);
+    const timeStamp = new Date().getTime();
+    node.setAttribute("id", timeStamp);
+    node.classList.add('edit');
+    document.querySelector(".preview-content").appendChild(node);
+  }
 
   render() {
     const { collapsed } = this.state;
@@ -49,22 +62,31 @@ export default class SiderDemo extends React.Component {
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
+          {/* <Header className="site-layout-background" style={{ padding: 0 }} /> */}
           <Content style={{ margin: "0 16px" }}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
+            {/* <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
+            </Breadcrumb> */}
             <div
               className="site-layout-background"
-              style={{ padding: 24, minHeight: 360 }}
+              style={{ padding: 24, height: "100vh" }}
             >
-              {this.props.children}
+              <div className="site-left">
+                <div className="components-content">
+                  {this.props.children}
+                </div>
+              </div>
+              <div className="site-right">
+                <div className="preview-content" onDragOver={this.dragOver} onDrop={this.ondrop}>
+
+                </div>
+              </div>
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
+          {/* <Footer style={{ textAlign: "center" }}>
             Ant Design ©2018 Created by Ant UED
-          </Footer>
+          </Footer> */}
         </Layout>
       </Layout>
     );
